@@ -1,95 +1,112 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+import { useState } from 'react';
+import { FaCopy } from 'react-icons/fa';
+import "./Page.css"
 
-export default function Home() {
+function generatePassword(length, includeLower, includeUpper, includeNumbers, includeSymbols) {
+  let charset = '';
+  if (includeLower) charset += "abcdefghijklmnopqrstuvwxyz";
+  if (includeUpper) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  if (includeNumbers) charset += "0123456789";
+  if (includeSymbols) charset += "!@#$%^&*()_+{}[]|\\:;?><,./-=";
+  
+  if (charset === '') {
+    console.error('Please select at least one character type.');
+    return '';
+  }
+
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+  return password;
+}
+
+export default function PasswordGenerator() {
+  const [passwordLength, setPasswordLength] = useState(8);
+  const [includeLower, setIncludeLower] = useState(true);
+  const [includeUpper, setIncludeUpper] = useState(true);
+  const [includeNumbers, setIncludeNumbers] = useState(true);
+  const [includeSymbols, setIncludeSymbols] = useState(false);
+  const [password, setPassword] = useState('');
+  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+
+  const handleGeneratePassword = () => {
+    const newPassword = generatePassword(passwordLength, includeLower, includeUpper, includeNumbers, includeSymbols);
+    setPassword(newPassword);
+    setShowCopiedMessage(false); // Reset copied message visibility
+  };
+
+  const handleCopyPassword = () => {
+    navigator.clipboard.writeText(password);
+    setShowCopiedMessage(true); // Show copied message
+    setTimeout(() => {
+      setShowCopiedMessage(false); // Hide copied message after 2 seconds
+    }, 2000);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <>
+      <h1>Random Password Generator</h1>
+      <div className='container'>
+        <div className="password-generator">
+          <div>
+            <label style={{fontSize:"25px", fontWeight:"800"}}>Generated Password:</label>
+            <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+              <input type="text" value={password} readOnly className="generated-password" />
+              <FaCopy onClick={handleCopyPassword} style={{fontSize:"25px", cursor:"pointer"}} />
+              {showCopiedMessage && <span className="copied-message">Copied!</span>}
+            </div>
+          </div>
+          <div className="password-controls">
+            <label style={{fontSize:"20px", fontWeight:"600"}}>Password Length: {passwordLength}</label>
+            <input 
+              type="range" 
+              min="6" 
+              max="20" 
+              value={passwordLength} 
+              onChange={(e) => setPasswordLength(parseInt(e.target.value))}
+              className="password-slider"
             />
-          </a>
+          </div>
+          <div className="checkboxes">
+            <div>
+              <input 
+                type="checkbox" 
+                checked={includeLower} 
+                onChange={(e) => setIncludeLower(e.target.checked)} 
+              />
+              <label>Include Lowercase</label>
+            </div>
+            <div>
+              <input 
+                type="checkbox" 
+                checked={includeUpper} 
+                onChange={(e) => setIncludeUpper(e.target.checked)} 
+              />
+              <label>Include Uppercase</label>
+            </div>
+            <div>
+              <input 
+                type="checkbox" 
+                checked={includeNumbers} 
+                onChange={(e) => setIncludeNumbers(e.target.checked)} 
+              />
+              <label>Include Numbers</label>
+            </div>
+            <div>
+              <input 
+                type="checkbox" 
+                checked={includeSymbols} 
+                onChange={(e) => setIncludeSymbols(e.target.checked)} 
+              />
+              <label>Include Symbols</label>
+            </div>
+          </div>
+          <button onClick={handleGeneratePassword} className="generate-button">Generate Password</button>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }
