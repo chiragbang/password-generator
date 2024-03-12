@@ -2,13 +2,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+}
+
+body {
+    background-color: black;
 }
 
 h1 {
     text-align: center;
     padding-block: 20px;
-    background-color: black;
+    /* background-color: black; */
     color: white;
 }
 
@@ -16,18 +22,36 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh; /* Makes the container take up the full height of the viewport */
+    height: 80vh;
+    /* Makes the container take up the full height of the viewport */
     line-height: 2rem;
-    
+
+
 }
 
 .password-generator {
-    width: 30%; /* Adjust width as needed */
+    width: 30%;
+    /* Adjust width as needed */
     padding-block: 20px;
     padding-inline: 20px;
     border-radius: 10px;
     /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
     border: 1px solid gray;
+    /* background-color: black;
+color: white; */
+    /* background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18); */
+
+    background: rgba( 255, 255, 255, 0.35 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 11px );
+-webkit-backdrop-filter: blur( 11px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .password-controls {
@@ -42,6 +66,7 @@ h1 {
     border-radius: 5px;
     background: #ddd;
     outline: none;
+    /* padding-block: 20px; */
 }
 
 .password-slider::-webkit-slider-thumb {
@@ -50,28 +75,54 @@ h1 {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #007bff;
+    background: #080d13;
     cursor: pointer;
 }
 
 .checkboxes div {
     margin-bottom: 10px;
+    /* gap: 10px; */
+}
+
+.checkboxes input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(10, 3, 3);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkboxes input[type="checkbox"]:checked::before {
+    content: '\2713';
+    /* Unicode character for check mark */
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    color: #080d13;
+    /* Change the color of the tick mark here */
+    font-weight: 900;
 }
 
 .generate-button {
-    background-color: #007bff;
+    background-color: #080d13;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .generate-button:hover {
-    background-color: #0056b3;
+    /* background-color: #0056b3; */
+    background: transparent;
+    border: 1px solid #080d13;
 }
 
 .generated-password {

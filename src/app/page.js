@@ -48,11 +48,12 @@ export default function PasswordGenerator() {
 
   return (
     <>
-      <h1>Random Password Generator</h1>
+      {/* <h1>Random Password Generator</h1> */}
       <div className='container'>
         <div className="password-generator">
           <div>
-            <label style={{fontSize:"25px", fontWeight:"800"}}>Generated Password:</label>
+            {/* <label style={{fontSize:"25px", fontWeight:"800", textAlign: "center"}}>Generated Password:</label> */}
+            <h2 style={{fontSize: "45px", paddingBlock:"20px", fontWeight: "400"}}>Generated Password : </h2>
             <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
               <input type="text" value={password} readOnly className="generated-password" />
               <FaCopy onClick={handleCopyPassword} style={{fontSize:"25px", cursor:"pointer"}} />
@@ -60,7 +61,10 @@ export default function PasswordGenerator() {
             </div>
           </div>
           <div className="password-controls">
-            <label style={{fontSize:"20px", fontWeight:"600"}}>Password Length: {passwordLength}</label>
+            {/* <label style={{fontSize:"20px", fontWeight:"600", marginBlock: "10px"}}>Password Length: {passwordLength}</label> */}
+
+            <h2 style={{fontSize: "35px", paddingBlock:"20px", fontWeight: "200"}}>Password Length: {passwordLength}</h2>
+
             <input 
               type="range" 
               min="6" 
@@ -77,7 +81,7 @@ export default function PasswordGenerator() {
                 checked={includeLower} 
                 onChange={(e) => setIncludeLower(e.target.checked)} 
               />
-              <label>Include Lowercase</label>
+              <label>     Include Lowercase</label>
             </div>
             <div>
               <input 
@@ -85,7 +89,7 @@ export default function PasswordGenerator() {
                 checked={includeUpper} 
                 onChange={(e) => setIncludeUpper(e.target.checked)} 
               />
-              <label>Include Uppercase</label>
+              <label>     Include Uppercase</label>
             </div>
             <div>
               <input 
@@ -93,7 +97,7 @@ export default function PasswordGenerator() {
                 checked={includeNumbers} 
                 onChange={(e) => setIncludeNumbers(e.target.checked)} 
               />
-              <label>Include Numbers</label>
+              <label>     Include Numbers</label>
             </div>
             <div>
               <input 
@@ -101,7 +105,7 @@ export default function PasswordGenerator() {
                 checked={includeSymbols} 
                 onChange={(e) => setIncludeSymbols(e.target.checked)} 
               />
-              <label>Include Symbols</label>
+              <label>     Include Symbols</label>
             </div>
           </div>
           <button onClick={handleGeneratePassword} className="generate-button">Generate Password</button>
